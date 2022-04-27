@@ -1,26 +1,38 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <user-login v-if="!isValidated" @getUserId ="getUserId"/>
+  <user-subscribe v-if="isValidated" :userid="currentUser"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import userSubscribe from "./components/subscribe.vue"
+import userLogin from "./components/login.vue"
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    userSubscribe,
+    userLogin
+  },
+  data () {
+    return {
+      isValidated : false,
+      currentUser :null
+    }
+  },
+  methods: {
+    getUserId (userid) {
+      if(userid){
+        console.log(userid);
+        this.currentUser = userid
+        this.isValidated = true
+        console.log(this.isValidated)
+      }
+    }
+
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
